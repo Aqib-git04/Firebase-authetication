@@ -4,7 +4,6 @@ import { auth, createUserWithEmailAndPassword } from './firebase.js';
 
 let emails = [];
 
-// Function to handle registration
 const register = () => {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
@@ -23,7 +22,6 @@ const register = () => {
         title: 'Registered!',
         text: 'Email has been registered successfully',
       }).then(() => {
-       
         window.location.href = 'profile.html';
       });
       console.log('Registered emails:', emails);
@@ -39,9 +37,9 @@ const register = () => {
         text: errorMessage,
       });
     });
+
 };
 
-// Function to show alert for missing fields
 const showAlert = (email, password) => {
   if (!email && !password) {
     Swal.fire({
@@ -64,13 +62,9 @@ const showAlert = (email, password) => {
   }
 };
 
-// Event listener for register button
+
 const btn = document.getElementById('registerbtn');
 btn.addEventListener('click', () => {
   register();
 });
 
-export{
-  register,
-  showAlert
-}
