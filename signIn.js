@@ -1,12 +1,8 @@
 import { auth, createUserWithEmailAndPassword } from './firebase.js';
 
-
-
-let emails = [];
-
-const register = () => {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+const signIn = () => {
+  const email = document.getElementById('signinEmail').value;
+  const password = document.getElementById('signinPassword').value;
 
   if (!email || !password) {
     showAlert(email, password);
@@ -16,14 +12,13 @@ const register = () => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       console.log('User>', userCredential);
-      emails.push(email);
+     
       Swal.fire({
         icon: 'success',
         title: 'Registered!',
-        text: 'Email has been registered successfully',
-      }).then(() => {
-        window.location.href = 'profile.html';
-      });
+        text: 'signed in',
+      })
+      window.location.href='profile.html'
       console.log('Registered emails:', emails);
     })
     .catch((error) => {
@@ -63,8 +58,9 @@ const showAlert = (email, password) => {
 };
 
 
-const btn = document.getElementById('registerbtn');
+
+const btn = document.getElementById('logIn');
 btn.addEventListener('click', () => {
-  register();
+  signIn();
 });
 
