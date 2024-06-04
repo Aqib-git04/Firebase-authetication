@@ -1,4 +1,4 @@
-import { auth, createUserWithEmailAndPassword } from './firebase.js';
+import { auth, createUserWithEmailAndPassword, sendPasswordResetEmail } from './firebase.js';
 
 const signIn = () => {
   const email = document.getElementById('signinEmail').value;
@@ -12,14 +12,14 @@ const signIn = () => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       console.log('User>', userCredential);
-     
+
       Swal.fire({
         icon: 'success',
         title: 'Registered!',
         text: 'signed in',
       })
-      window.location.href='profile.html'
-      console.log('Registered emails:', emails);
+      console.log('Registered emails:', email);
+      window.location.href = 'profile.html'
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -57,10 +57,36 @@ const showAlert = (email, password) => {
   }
 };
 
+// Send email to user
 
+const spr = () => {
+  const email = document.getElementById('signinEmail').value;
+  sendPasswordResetEmail(auth, email)
+    .then((res) => {
+      console.log("Password reset email sent!");
+      Swal.fire({
+        icon: 'success',
+        text: `Reset Email has been sent to ${email}`,
+      });
+    })
+
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, "errorCode");
+      console.log(errorMessage, "errorMessage");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: 'Email is missing',
+      });
+    });
+}
+
+const forgetPassword = document.getElementById('forgetPassword');
+forgetPassword.addEventListener('click', spr);
 
 const btn = document.getElementById('logIn');
 btn.addEventListener('click', () => {
   signIn();
 });
-

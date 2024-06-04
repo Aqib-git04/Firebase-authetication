@@ -1,5 +1,5 @@
 * {
-  margin: 13px auto;
+  margin: 5% auto;
 }
 
 #body {
@@ -282,4 +282,9 @@
   100% {
     transform: scale(1, 1);
   }
+}
+
+#forgetPassword {
+  color: #fff;
+  text-decoration: underline;
 }
